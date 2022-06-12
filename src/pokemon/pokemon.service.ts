@@ -28,8 +28,8 @@ export class PokemonService {
     findOne(name: string): Observable<Pokemon> {
         return this.httpService.get(`https://pokeapi.co/api/v2/pokemon/${name}`).pipe(
             map(response => {
-                const { name, stats, id, sprites: { front_default } } = response.data;
-                return { name, stats, id, image: front_default };
+                const { name, stats, sprites: { front_default } } = response.data;
+                return { name, stats, image: front_default };
             })
         );
     }
