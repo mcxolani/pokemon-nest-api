@@ -25,11 +25,15 @@ export class PokemonService {
         return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${id}.png`;
     }
 
+    getPokemonArtworkByID(id: number): string {
+        return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
+    }
+
     findOne(name: string): Observable<Pokemon> {
         return this.httpService.get(`https://pokeapi.co/api/v2/pokemon/${name}`).pipe(
             map(response => {
-                const { name, stats, sprites: { front_default } } = response.data;
-                return { name, stats, image: front_default };
+                const { name, stats, id } = response.data;
+                return { name, stats, image: this.getPokemonArtworkByID(id) };
             })
         );
     }
